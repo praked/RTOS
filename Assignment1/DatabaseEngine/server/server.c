@@ -58,13 +58,13 @@ int main(void)
 	char buffer[32];			/* filename buffer */
 	int k = 1;				/* filename counter*/
 
-    	FILE *f;				/* file where output has to be written */
-    	f = fopen("out.txt", "w");
-	if(f == NULL)
-	{
-		perror("file");
-		exit(1);
-	}
+ //    	FILE *f;				/* file where output has to be written */
+ //    	f = fopen("out.txt", "w");
+	// if(f == NULL)
+	// {
+	// 	perror("file");
+	// 	exit(1);
+	// }
 
 	key = ftok("msgQ_client.c", 'B');
     	if (key == -1) 
@@ -90,12 +90,12 @@ int main(void)
 		answer = 0;
 
 		/* Receiving the message */
-        	if (msgrcv(msqid, &buf, sizeof buf.mtext, 0, 0) == -1) 
-        	{
-			fprintf(f, "\n");
-        	}
+    	if (msgrcv(msqid, &buf, sizeof buf.mtext, 0, 0) == -1) 
+    	{
+		fprintf(f, "\n");
+    	}
 
-		/* Extracting the name of the client */
+		/* Extracting the name of the client */`
 		for(i = 0; buf.mtext[i] != ':'; i++)
 		{
 			name[i] = buf.mtext[i];
@@ -130,7 +130,7 @@ int main(void)
 		}
 		
 		/* Performing arithmetic operation */
-		switch(ch)
+		/*switch(ch)
 		{
 			case '+':
 				answer = number1 + number2;
@@ -154,7 +154,7 @@ int main(void)
 				break;
 			default:
 				printf("This operation cannot be performed\n");
-		}
+		}*/
 
     	}
 
