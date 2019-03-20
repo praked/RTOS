@@ -6,22 +6,20 @@ Coroutines are generalization of subroutines. They are used for cooperative mult
 
 -Unlike subroutines, there is no main function to call coroutines in particular order and coordinate the results. Coroutines are cooperative that means they link together to form a pipeline. One coroutine may consume input data and send it to other which process it. Finally there may be a coroutine to display result.
 
-# Co-Routines in Python 
-# Implementation
+# Implementation of Co-Routines in C
 
-The co-routine is implemented using Mutex locks, which make sure that only one portion of program is being executed. Provided this guarantee, there is no need to consider race conditions between these portions of code. Hence simple global variables can be used for data transfer.
+The co-routine is implemented using the concept of Threads and Mutex. The threads are created as different parallel subroutines to imitate the co-routine behaviour using the shared memory as a communication medium and mutex to protect unwanted access and executions. We are working on the assumption of the process working in a round robin fashion.
 
 # Simple co-routine test
 The output of the simple co-routine test is expected as follows,
 ```
-print_mesg co-routine #0 recieved message A
-print_digit co-routine #4 recieved message 1
-print_mesg co-routine #1 recieved message B
-print_digit co-routine #3 recieved message 2
-print_mesg co-routine #2 recieved message C
-print_mesg co-routine #1 recieved message X
-print_digit co-routine #3 recieved message 3
-print_mesg co-routine #2 recieved message Z
+print_add1 co-routine #0 recieved message 11
+print_add1 co-routine #2 recieved message 2
+print_add1 co-routine #1 recieved message 6
+print_add1 co-routine #0 recieved message 3
+print_add1 co-routine #2 recieved message 8
+print_add1 co-routine #1 recieved message 32
+
 ```
 
 # Snake and ladder game
@@ -449,7 +447,7 @@ Winners
  4th place : 1
 Total turnaround time: 31981
 ```
-# Performance
+# Timing Performance
 
 The snake and ladder game was run several times to get the running time with following results:
 
@@ -460,3 +458,5 @@ The snake and ladder game was run several times to get the running time with fol
 | 3         |  13939  |
 | 4         |  41962  |
 | 5         |  30889  |
+
+The time performance was less consistent after the use of srand() .

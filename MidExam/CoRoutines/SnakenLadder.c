@@ -54,7 +54,7 @@ void co_kill(int co_id){
 	pthread_mutex_destroy(&(th_locks[co_id])); 
 }
 
-////////////// HELPERS FOR SNAKE & LADDER
+/*SUBROUTINES FOR SNAKE & LADDER*/
 int PlayerLocation[100];
 int snake_s[9] = {8,  18, 26, 39, 51, 55, 78, 85, 99};
 int snake_d[9] = {4, 1, 10, 5, 6,  20, 30, 55, 9};
@@ -128,7 +128,7 @@ void* player(void *arg)
 	return NULL; 
 } 
 
-////////////// MAIN
+/* Main */
 
 int main(void) 
 { 	
