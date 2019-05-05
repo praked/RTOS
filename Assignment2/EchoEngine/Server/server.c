@@ -7,48 +7,25 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define length 1024
-// Server function
-char *server_func(char filename[]){
-    FILE *f;
-    char *final = "";
-    
-    // Check for invalid instruction
-    if(filename[0] != 'G' || filename[1] != 'E' || filename[2] != 'T' || filename[3] != ' '){
-        final = "Invalid Instruction";
-        strcat(final,"\0");
-        printf("%s\n", final);
-        return final;
-    }
-    
-    // Extracting the filename
-    int len = strlen(filename);
-    int i;
-    for(i = 4; i <= len; i++){
-        filename[i-4] = filename[i];
-    }
-    printf("Filename is: %s\n", filename);
+// Function to be performed by server
+char *server_func(char c[]){
+    int ascii = c[0];
 
-    // Checking if ifle exist
-    f = fopen(filename,"r");
-    if(f == NULL){
-        final = "Data not found";
-        strcat(final,"\0");
-        printf("%s\n", final );
-        return final;
+    //  Converting upper case charecter to lower case charecter
+    if((ascii >= 65) && (ascii <= 90)){
+        ascii += 32;
+        c[0] = ascii;
     }
-    
-    // Storing data in a string
-    char message[length] = "", str[length];
-    while(fscanf(f, " %[^\n]", str) != EOF){
-        strcat(message, strcat(str,"\n"));
-    }   
 
-    strcat(message,"\0");
-    final = message;
-    printf("%s\n", final);
-    fclose(f);
-    return final;
+    //  Converting lower case charecter to upper case charecter
+    else if((ascii >= 97) && (ascii <= 122)){
+        ascii -= 32;
+        c[0] = ascii;
+    }
+
+    // Making last charecter of the string as end of string 
+    c[1] = '\0';
+    return c;
 }
 
 int main(int argc, char const *argv[])
@@ -56,7 +33,7 @@ int main(int argc, char const *argv[])
     int server_socket, new_socket;
     struct sockaddr_in serv_add, client_add;
     int addrlen = sizeof(serv_add);
-    char buff[length];
+    char buff[1024];
     char *buffer;
     
     // Creating the socket
@@ -108,11 +85,11 @@ int main(int argc, char const *argv[])
                 read(new_socket, buff, sizeof(buff));
                 printf("Request from client:%s\n",buff);
 
-                // Data to be sent back to client
+                // Data to be sent back toclient
                 buffer = server_func(buff);
-                
+
                 // Sending the data nack to client
-                write(new_socket,buffer,strlen(buffer));
+                write(new_socket,buffer,sizeof(buffer));
             }
         }
         else{

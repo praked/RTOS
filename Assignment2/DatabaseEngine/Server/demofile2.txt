@@ -1,0 +1,4 @@
+This is demo file number 2.
+Data would be read by this file and would be sent to a client which asked for the same.
+Data would be sent using a message queue.
+Thw whole data would be saved as a string while sending the data.
