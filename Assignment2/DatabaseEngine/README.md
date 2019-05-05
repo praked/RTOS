@@ -1,5 +1,5 @@
-## pranav Kedia
-## CC by 4.0
+### Pranav Kedia
+### CC by 4.0
 
 ### How To Run:
 
